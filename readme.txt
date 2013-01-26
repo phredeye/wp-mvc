@@ -2,8 +2,8 @@
 Contributors: tombenner
 Tags: mvc, framework, model, view, controller, development, plugin
 Requires at least: 3.0
-Tested up to: 3.3.1
-Stable tag: 1.1.5
+Tested up to: 3.4.2
+Stable tag: 1.2
 
 WP MVC is a full-fledged MVC framework, similar to CakePHP and Rails, that developers can use inside of WordPress.
 
@@ -18,8 +18,6 @@ WP MVC fills this gap. The basic idea is that you create an app/ directory that 
 For more extensive documentation, and to see what WP MVC is capable of, please visit [wpmvc.org](http://wpmvc.org).
 
 If you'd like to grab development releases, see what new features are being added, or browse the source code please visit the [GitHub repo](http://github.com/tombenner/wp-mvc).
-
-This is free and open source software. If you like it and want to encourage further development, please [flattr it](https://flattr.com/thing/487376/WP-MVC). Thanks!
 
 == Installation ==
 
@@ -44,7 +42,7 @@ It only takes four simple steps to create a basic WP MVC-based plugin:
 1. Create the initial code for the models, views, and controllers using a single command for each resource
 1. Modify the generated models, views, and controllers to customize the app
 
-For a simple example tutorial on this, please see the [tutorial on wpmvc.org](http://wpmvc.org/documentation/70/tutorial/).
+For a simple example tutorial on this, please see the [tutorial on wpmvc.org](http://wpmvc.org/documentation/tutorial/).
 
 == Frequently Asked Questions ==
 
@@ -66,3 +64,29 @@ If there's functionality that you'd like to use that isn't implemented in the ex
 3. An example of the default "admin/index" view, which includes search functionality and pagination by default and can be customized.
 4. An example of the default "admin/add" view. See the next screenshot for the code that creates it.
 5. The code of the "admin/add" view in the previous screenshot. Forms can be easily created using the form helper, which includes an `input()` method that automatically determines the data type of the field and shows an appropriate input tag. Methods for most types of inputs (textareas, hidden inputs, select tags, checkboxes, etc) are also available, as are association-related input methods like `belongs_to_dropdown()` and `has_many_dropdown()`.
+
+== Changelog ==
+
+= 1.2 =
+
+* Model objects now have magic properties for accessing their associations (e.g. $event->venue, $event->speakers)
+* Added model classes for most of the native WP tables (e.g. MvcPost, MvcUser), which can be used in the MVC context (e.g. as associations)
+* Support for the automatic creation/updating of a post for each object of a model, so that objects can be commented on, added in menus, etc
+* Support for easily creating admin settings pages through MvcSettings
+* Associations can be dependent (e.g. if List has_many ListItems, when List is deleted, its ListItems can be automatically deleted)
+* Moved configuration of admin menus from model to MvcConfiguration
+* Moved configuration of admin_columns, admin_searchable_fields, and admin_search_joins from the model to the controller
+* The 'controller' argument is no longer necessary for MvcRouter URL methods if 'object' is given
+* Added a number of filters (e.g. MvcController::before and after, MvcModel::after_create(), 'mvc_before_public_url')
+* Added 'group' clause to model select queries
+* Added methods for aggregate select queries (e.g. $model->count(), max(), min(), sum(), average())
+* Added MvcFormTagsHelper for creating inputs outside of object-related forms
+* Let MvcModel::create() and save() accept objects
+* Let MvcModel::to_url() optionally accept a second argument ($options)
+* Allowed for a custom 'parent_slug' value in an admin menu page config
+
+= 1.1.5 =
+* Support for generating, destroying, and registering widgets
+* Added HelpShell
+* Allowed for a custom PHP executable to be set in the environment variable $WPMVC_PHP
+* Allowed for the path to WordPress to be set in the environment variable $WPMVC_WORDPRESS_PATH
